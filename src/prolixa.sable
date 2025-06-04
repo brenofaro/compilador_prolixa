@@ -1,0 +1,12 @@
+Package prolixa;
+
+Helpers
+ rc = 13;
+ nl = 10;
+ espaco = ' ';
+
+Tokens
+ vazio = (espaco | rc | nl)+;
+
+Ignored Tokens
+ vazio;
