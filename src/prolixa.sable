@@ -3,9 +3,29 @@ Package prolixa;
 Helpers
  rc = 13;
  nl = 10;
- espaco = ' ';
+
+ // Caracteres
+  letra_maiuscula = ['A' .. 'Z'];
+  letra_minuscula = ['a' .. 'z'];
+  letra = letra_minuscula | letra_minuscula;
+  digitos = ['0' .. '9'];
+  underline = '_';
+  espaco = ' ';
+  aspas_simples = 39;
+  all = [0 .. 0xFFFF];
+
+
+
 
 Tokens
+ // Identificador
+ identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
+
+ // Tipos primitivos
+ symbol = aspas_simples all+ aspas_simples;
+
+
+ digit = digitos+;
  vazio = (espaco | rc | nl)+;
 
 Ignored Tokens
