@@ -13,19 +13,33 @@ Helpers
   espaco = ' ';
   aspas_simples = 39;
   all = [0 .. 0xFFFF];
-
-
-
-
+  contrabarra = '\';
+  
+  abre_chaves = '{';
+  fecha_chaves = '}';
+  ponto = '.';
+  
+  
+  identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
+  
+ 
 Tokens
+ // Expressões
+ this_is_program = 'This' espaco 'is' espaco 'program';
+ 
+
  // Identificador
- identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
+ ID = identificador;
 
  // Tipos primitivos
- symbol = aspas_simples all+ aspas_simples;
+ symbol = aspas_simples (contrabarra all | all) aspas_simples;
+ answer = 'yes' | 'no';
+ number = (digitos+ | digitos+ ponto digitos+);
 
+ // Comentário
+ comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
 
- digit = digitos+;
+ 
  vazio = (espaco | rc | nl)+;
 
 Ignored Tokens
