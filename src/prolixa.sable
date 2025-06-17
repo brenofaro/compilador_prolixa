@@ -12,6 +12,7 @@ Helpers
   underline = '_';
   espaco = ' ';
   aspas_simples = 39;
+  aspas_duplas = 34;
   all = [0 .. 0xFFFF];
   contrabarra = '\';
   
@@ -74,6 +75,8 @@ Tokens
  answer = 'yes' | 'no';
  number = (digitos+ | digitos+ ponto digitos+);
 
+ // Outro tipo
+ string = aspas_duplas all+ aspas_duplas;
  //Operadores
  igual = '=';
  
