@@ -3,6 +3,8 @@ import prolixa.lexer.*;
 import prolixa.node.*;
 import java.io.*;
 
+import calculadora.node.TVazio;
+
 public class Main
 {
     public static void main(String[] args)
@@ -17,8 +19,10 @@ public class Main
                                     new FileReader(arquivo), 1024));
             Token token;
             while(!((token = lexer.next()) instanceof EOF)) {
+            	if (token.getClass() != TVazio.class) { // If para não exibir os tokens vazios
                 System.out.println(token.getClass());
                 System.out.println(" ( "+token.toString()+")");
+            	}
             }
         }
         catch(Exception e)
