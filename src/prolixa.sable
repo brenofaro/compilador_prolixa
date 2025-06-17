@@ -17,27 +17,68 @@ Helpers
   
   abre_chaves = '{';
   fecha_chaves = '}';
+  abre_parenteses = '(';
+  fecha_parenteses = ')';
   ponto = '.';
+  virgula = ',';
+  dois_pontos = ':';
+  ponto_e_virgula = ';';
   
   
   identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
   
  
 Tokens
- // Expressões
- this_is_program = 'This' espaco 'is' espaco 'program';
+ // Palavras reservadas
+ 
+ //Start
+ this = 'This';
+ is = 'is';
+ program = 'program';
+ 
+ //Declarações
+ it = 'It';
+ presents = 'presents';
+ 
+ of = 'of'; // De of type
+ 
+ alterable = 'alterable';
+ unalterable = 'unalterable';
+ vector = 'vector';
+
+ //Begin
+ let = 'Let';
+ us = 'us';
+ begin = 'begin';
+ 
+ //End Begin
+ that = 'That';
+ would = 'would';
+ be = 'be';
+ all = 'all';
+ 
+ // Extras
+ ponto = ponto;
+ dois_pontos = dois_pontos;
+ ponto_e_virgula = ponto_e_virgula;
+ abre_parenteses = abre_parenteses;
+ fecha_parenteses = fecha_parenteses;
+ virgula = virgula;
  
 
  // Identificador
- ID = identificador;
+ id = identificador;
 
  // Tipos primitivos
  symbol = aspas_simples (contrabarra all | all) aspas_simples;
  answer = 'yes' | 'no';
  number = (digitos+ | digitos+ ponto digitos+);
 
+ //Operadores
+ igual = '=';
+ 
  // Comentário
- comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
+ comment = abre_chaves all+ fecha_chaves;
 
  
  vazio = (espaco | rc | nl)+;
