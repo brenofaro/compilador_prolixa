@@ -3,8 +3,6 @@ import prolixa.lexer.*;
 import prolixa.node.*;
 import java.io.*;
 
-import calculadora.node.TVazio;
-
 public class Main
 {
     public static void main(String[] args)

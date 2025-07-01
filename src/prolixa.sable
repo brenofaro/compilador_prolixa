@@ -76,7 +76,7 @@ Tokens
  number = (digitos+ | digitos+ ponto digitos+);
 
  // Outro tipo
- string = aspas_duplas all+ aspas_duplas;
+ string = aspas_duplas all+ aspas_duplas; // Analisar isso porque o comportamento é ir até a ultima aspas duplas e não, parar no primeiro par de aspas
  //Operadores
  igual = '=';
  
