@@ -81,7 +81,7 @@ Tokens
  igual = '=';
  
  // Comentário
- comment = abre_chaves all+ fecha_chaves;
+ comment = abre_chaves [all-fecha_chaves]+ fecha_chaves;
 
  
  vazio = (espaco | rc | nl)+;
