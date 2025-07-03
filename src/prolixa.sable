@@ -8,7 +8,8 @@ Helpers
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
-  letra = letra_minuscula | letra_maiuscula;
+  letra_acentos = ['À' .. 'ÿ'];
+  letra = (letra_minuscula | letra_maiuscula | letra_acentos);
   digitos = ['0' .. '9'];
   underline = '_';
   espaco = ' ';

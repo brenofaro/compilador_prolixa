@@ -22,7 +22,6 @@ clean:
 
 # Executa o programa
 run: all
-	clear
 	$(JAVA) -cp $(BIN) prolixa.Main
 
 # Limpa os arquivos antigos e executa o programa
