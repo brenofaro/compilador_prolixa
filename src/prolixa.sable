@@ -28,6 +28,7 @@ Helpers
   
   identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
   
+  vazio = (espaco | rc | nl)+;
  
 Tokens
  // Palavras reservadas
@@ -71,20 +72,21 @@ Tokens
  id = identificador;
 
  // Tipos primitivos
- symbol = aspas_simples (contrabarra all | all) aspas_simples;
+ symbol = aspas_simples (contrabarra all | all)? aspas_simples;
  answer = 'yes' | 'no';
  number = (digitos+ | digitos+ ponto digitos+);
 
  // Outro tipo
- string = aspas_duplas all+ aspas_duplas; // Analisar isso porque o comportamento é ir até a ultima aspas duplas e não, parar no primeiro par de aspas
+ string = aspas_duplas [all - aspas_duplas]+ aspas_duplas;
+ 
  //Operadores
  igual = '=';
  
  // Comentário
- comment = abre_chaves [all-fecha_chaves]+ fecha_chaves;
+ comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
 
  
- vazio = (espaco | rc | nl)+;
+ vazio = vazio;
 
 Ignored Tokens
  vazio;
