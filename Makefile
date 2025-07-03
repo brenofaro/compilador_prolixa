@@ -1,6 +1,6 @@
 JAVA=java
 JAVAC=javac
-SABLECC_JAR=C:\Dev\sablecc-3.7\lib\sablecc.jar
+SABLECC_JAR=lib/sablecc.jar
 SRC=src/prolixa
 BIN=bin
 
@@ -22,6 +22,7 @@ clean:
 
 # Executa o programa
 run: all
+	clear
 	$(JAVA) -cp $(BIN) prolixa.Main
 
 # Limpa os arquivos antigos e executa o programa

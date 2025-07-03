@@ -39,7 +39,3 @@ parser
 
 ### XML ###
 *.xml
-
-
-### MAKEFILE ###
-Makefile
