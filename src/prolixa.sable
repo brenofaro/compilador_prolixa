@@ -3,6 +3,7 @@ Package prolixa;
 Helpers
  rc = 13;
  nl = 10;
+ tab = 9;
 
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
@@ -28,9 +29,9 @@ Helpers
   fecha_colchetes = ']';
   
   
-  identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
+  identificador = letra_maiuscula (letra | underline)*;
   
-  vazio = (espaco | rc | nl)+;
+  vazio = (espaco | rc | nl | tab)+;
  
 Tokens
  // Palavras reservadas
@@ -75,7 +76,7 @@ as = 'as';
 long = 'long';
 
 // Considering
-considring = 'considering';
+considering = 'considering';
 from = 'from';
 to = 'to';
 by = 'by';
@@ -97,6 +98,9 @@ show  = 'show';
  ponto_e_virgula = ponto_e_virgula;
  abre_parenteses = abre_parenteses;
  fecha_parenteses = fecha_parenteses;
+abre_colchetes = abre_colchetes;
+fecha_colchetes = fecha_colchetes;
+
  virgula = virgula;
  
 
@@ -109,10 +113,11 @@ show  = 'show';
  number = (digitos+ | digitos+ ponto digitos+);
 
  // Outro tipo
- string = aspas_duplas [all - aspas_duplas]+ aspas_duplas;
+ string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
  
+ interval = ['à'..'ü'];
  // Bloco
- bloco = abre_colchetes [all - fecha_colchetes]+ fecha_colchetes;
+ // bloco = abre_colchetes [all - fecha_colchetes]* fecha_colchetes;
  
  //Operadores
  igual = '=';
