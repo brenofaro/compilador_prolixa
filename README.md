@@ -6,10 +6,11 @@
 
 
 ### Como rodar o programa:
-1. Altere o caminho do arquivo jar do sable no Makefile para o caminho correto no seu sistema.
-2. Execute o comando `make` para compilar o projeto.
-3. Após a compilação, Pode executar o comando `make run` para rodar o programa ou rodar o arquivo **Main.java** usando o eclipse.
-
+1. Crie um novo arquivo chamado Makefile na raiz do projeto.
+2. Copie o seguinte conteúdo do Makefile.example para o seu Makefile:
+3. Altere a variável SABLECC_JAR para o caminho do arquivo SableCC.jar que você baixou.
+4. Execute o comando `make` no terminal para compilar o programa.
+5. Após a compilação, você pode executar o programa com o comando `make run`.
 ---
-
-Se quiser tambem pode limpar e ja rodar o programa usando `make runb`
+#### Opção recomendada
+Usar `make runb` para limpar os arquivos gerados e executar o programa novamente automaticamente.
