@@ -8,7 +8,7 @@ Helpers
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
-  letra = letra_minuscula | letra_minuscula;
+  letra = letra_minuscula | letra_maiuscula;
   digitos = ['0' .. '9'];
   underline = '_';
   espaco = ' ';
@@ -112,12 +112,13 @@ fecha_colchetes = fecha_colchetes;
  answer = 'yes' | 'no';
  number = (digitos+ | digitos+ ponto digitos+);
 
+tipo = ('answer' | 'symbol' | 'number');
+
  // Outro tipo
  string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
  
- interval = ['à'..'ü'];
  // Bloco
- // bloco = abre_colchetes [all - fecha_colchetes]* fecha_colchetes;
+ 
  
  //Operadores
  igual = '=';
