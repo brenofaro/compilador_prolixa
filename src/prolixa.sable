@@ -24,6 +24,8 @@ Helpers
   virgula = ',';
   dois_pontos = ':';
   ponto_e_virgula = ';';
+  abre_colchetes = '[';
+  fecha_colchetes = ']';
   
   
   identificador = letra_maiuscula (letra_maiuscula | letra_minuscula | underline)*;
@@ -79,8 +81,26 @@ Tokens
  // Outro tipo
  string = aspas_duplas [all - aspas_duplas]+ aspas_duplas;
  
+ // Bloco
+ bloco = abre_colchetes [all - fecha_colchetes]+ fecha_colchetes;
+ 
  //Operadores
  igual = '=';
+ multiplicacao = '*';
+ divisao = '/';
+ subtracao = '-';
+ soma = '+';
+ resto = '//';
+ comparacao = '==';
+ diferenca = '!=';
+ menorqueigual = '<=';
+ maiorqueigual = '>=';
+ menorque = '<';
+ maiorque = '>';
+ negacao = '!';
+ and = 'and';
+ or = 'or';
+ xor = 'xor';
  
  // Comentário
  comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;

@@ -9,5 +9,13 @@ Let = "Teste";
 Test = '';
 String_teste = "Teste de string "
 
+[
+	Let = "Teste";
+	Test = '';
+	String_teste = "Teste de string ";
+]
+
+
+
 {Comment sdfsdfsdfsd}
 That would be all.
