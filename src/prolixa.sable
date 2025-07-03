@@ -56,11 +56,41 @@ Tokens
  begin = 'begin';
  
  //End Begin
- that = 'That';
+ beginthat= 'That';
  would = 'would';
  be = 'be';
  all = 'all';
  
+// Just in case that do
+just  = 'just';
+in  = 'in';
+case  = 'case';
+that  = 'that';
+do = 'do';
+
+otherwise = 'otherwise';
+
+// As long as
+as = 'as';
+long = 'long';
+
+// Considering
+considring = 'considering';
+from = 'from';
+to = 'to';
+by = 'by';
+
+abandon = 'abandon';
+
+//Go to next iteration
+go = 'go';
+next = 'next';
+iteration = 'iteration';
+
+//Comando
+capture  = 'capture';
+show  = 'show';
+
  // Extras
  ponto = ponto;
  dois_pontos = dois_pontos;
