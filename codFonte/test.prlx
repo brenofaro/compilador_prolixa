@@ -1,106 +1,38 @@
-This is program Num.
+This is program SituacaoAluno.
+
 It presents:
-    unalterable number Tamanho = 6;
-    vector of number (Tamanho) Lista;
-    alterable number Aux, I, J;
+
+alterable number Primeira_Nota;
+alterable number Segunda_Nota;
+alterable number Media;
+alterable number Faltas;
+vector of symbol (100) Nome;
+Teste = "a";
 
 Let us begin:
-    Lista(1) := - 9;
-    Lista(2) := 6;
-    Lista(3) := 0;
-    Lista(4) := 3;
-    Lista(5) := 7;
-    Lista(6) := 2;
-    
-    considering I from 1 to Tamanho by 1
-    do [
-        alterable answer Trocou := no;
-        considering J from 1 to Tamanho - I by 1
-        do [
-            just in case that ( Lista(J) > Lista(J+1) )
-            do [
-                Aux := Lista(J);
-                Lista(J) := Lista(J+1);
-                Lista(J+1) := Aux;
-                Trocou := yes;
-            ]
-        ]
-        just in case that ( !Trocou ) 
-        do
-            go to next iteration;
-    ]
 
-    considering I from 1 to Tamanho by 1
-    do [
-        show(Lista(I));
-    ]
-    
-    Lista(1) := 9;
-    Lista(2) := 6;
-    Lista(3) := 0;
-    Lista(4) := 3;
-    Lista(5) := 7;
-    Lista(6) := 2;
+show("Digite o nome do aluno\n");
+capture(Nome);
+show("Digite a primeira nota do aluno\n");
+capture(Primeira_Nota);
+show("Digite a segunda nota do aluno\n");
+capture(Segunda_Nota);
+show("Digite a quantidade de faltas do aluno\n");
+capture(Faltas);
 
-    considering I from 1 to Tamanho by 1
-    do [
-        alterable answer Trocou := no;
-        considering J from 1 to Tamanho - I by 1
-        do [
-            just in case that ( Lista(J) < Lista(J+1) )
-            do [
-                Aux := Lista(J);
-                Lista(J) := Lista(J+1);
-                Lista(J+1) := Aux;
-                Trocou := yes;
-            ]
-            otherwise 
-            do 
-                go to next iteration;
-        ]
-        just in case that ( !Trocou ) 
-        do
-            go to next iteration;
-    ]
 
-    considering I from 1 to Tamanho by 1
-    do [
-        show(Lista(I));
-    ]
-    
-    Aux := Lista(1);
-    considering I from 2 to Tamanho by 1
-    do [
-        Aux := Aux + Lista(I);
-    ]
-    
-    show(Aux);
+{Verifica se os aluno tirou notas diferentes}
+just in case that (Primeira_Nota != Segunda_Nota) do
+	show(Nome, "Tirou notas diferentes ao longo do semestre.\n");
 
-    Aux := Lista(1);
-    considering I from 2 to Tamanho by 1
-    do [
-        Aux := Aux - Lista(I);
-    ]
 
-    show(Aux);
+Media := (Primeira_Nota + Segunda_Nota)/2;
 
-    considering I from 1 to Tamanho by 1
-    do [
-        Lista(I) := 2 * Lista(I);
-    ]
 
-    considering I from 1 to Tamanho by 1
-    do [
-        show(Lista(I));
-    ]
-    
-    Aux := Lista(1);
-    considering I from 2 to Tamanho by 1
-    do [
-        Aux := Aux + Lista(I);
-    ]
-    Aux := Aux / Tamanho;
-
-    show(Aux);
+{Verifica se o aluno foi reprovado por média ou falta}
+just in case that (Media < 5 or Faltas > 15) do
+    show(Nome, " com media ", Media, " : REPROVADO POR MÉDIA OU FALTA EM COMPILADORES\n");
+otherwise do
+    show(Nome, " com media ", Media, " e ", Faltas, " faltas: APROVADO EM COMPILADORES\n");
 
 That would be all.

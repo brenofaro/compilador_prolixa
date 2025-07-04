@@ -9,7 +9,7 @@ public class Main
     {
         try
         {
-            String arquivo = "codFonte/codFonte.prlx";
+            String arquivo = "codFonte/test.prlx";
 
             Lexer lexer =
                     new Lexer(
