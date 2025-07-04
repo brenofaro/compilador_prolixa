@@ -51,6 +51,7 @@ Tokens
  alterable = 'alterable';
  unalterable = 'unalterable';
  vector = 'vector';
+ xmatriz = 'x';
 
  //Begin
  let = 'Let';
@@ -117,9 +118,6 @@ tipo = ('answer' | 'symbol' | 'number');
 
  // Outro tipo
  string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
- 
- // Bloco
- 
  
  //Operadores
  igual = '=';
