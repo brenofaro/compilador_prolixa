@@ -8,7 +8,7 @@ BIN=bin
 $(SRC)/analysis $(SRC)/lexer $(SRC)/node $(SRC)/parser:
 	$(JAVA) -classpath $(SABLECC_JAR) org.sablecc.sablecc.SableCC src/prolixa.sable
 
- Alvo principal: garante que o SableCC rodou, compila e copia os recursos
+#Alvo principal: garante que o SableCC rodou, compila e copia os recursos
 all: $(SRC)/analysis $(SRC)/lexer $(SRC)/node $(SRC)/parser
 	@mkdir -p $(BIN)
 	$(JAVAC) -d $(BIN) $(shell find $(SRC) -name "*.java")

@@ -9,7 +9,7 @@ Helpers
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
   letra_acentos = ['À' .. 'ÿ'];
-  letra = (letra_minuscula | letra_maiuscula | letra_acentos);
+  letra = (letra_minuscula | letra_maiuscula);
   digitos = ['0' .. '9'];
   underline = '_';
   espaco = ' ';
@@ -51,6 +51,7 @@ Tokens
  alterable = 'alterable';
  unalterable = 'unalterable';
  vector = 'vector';
+ xmatriz = 'x';
  xmatriz = 'x';
 
  //Begin
@@ -116,11 +117,12 @@ fecha_colchetes = fecha_colchetes;
 
 tipo = ('answer' | 'symbol' | 'number');
 
- // Outro tipo
- string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
+ // Vetor
+ symbol_vector = aspas_duplas [all - aspas_duplas]* aspas_duplas;
  
  //Operadores
  igual = '=';
+ atribuicao = ':=';
  multiplicacao = '*';
  divisao = '/';
  subtracao = '-';
