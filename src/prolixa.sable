@@ -52,7 +52,6 @@ Tokens
  unalterable = 'unalterable';
  vector = 'vector';
  xmatriz = 'x';
- xmatriz = 'x';
 
  //Begin
  let = 'Let';
