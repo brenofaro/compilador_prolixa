@@ -1,38 +1,72 @@
-This is program SituacaoAluno.
+This is program IMCalculator.
 
 It presents:
 
-alterable number Primeira_Nota;
-alterable number Segunda_Nota;
-alterable number Media;
-alterable number Faltas;
-vector of symbol (100) Nome;
-Teste = "a";
+	{Variáveis}
+	alterable answer Resposta;
+	alterable number Idade;
+	alterable number Altura;
+	alterable number Peso;
+	alterable number IMC;
+	vector of number (10x10) Teste;
 
 Let us begin:
 
-show("Digite o nome do aluno\n");
-capture(Nome);
-show("Digite a primeira nota do aluno\n");
-capture(Primeira_Nota);
-show("Digite a segunda nota do aluno\n");
-capture(Segunda_Nota);
-show("Digite a quantidade de faltas do aluno\n");
-capture(Faltas);
+show ("Você aceita os termos de serviço?");
 
+capture ( Resposta );
 
-{Verifica se os aluno tirou notas diferentes}
-just in case that (Primeira_Nota != Segunda_Nota) do
-	show(Nome, "Tirou notas diferentes ao longo do semestre.\n");
+{Loop até aceitar os temos de serviço}
+as long as ( Resposta == no ) do
+[
+	show ("Você aceita os termos de serviço?");
+	capture (Resposta);
+	just in case that (Resposta == yes) do
+		abandon;
+	just in case that (Resposta != yes) do
+		go to next iteration;
+	
+]
+{Captura dos dados do cliente}
+show ("Obrigado por aceitar os termos de serviço");
 
+show("Digite a sua idade:");
 
-Media := (Primeira_Nota + Segunda_Nota)/2;
+capture(Idade);
 
+show("Digite a sua altura:");
 
-{Verifica se o aluno foi reprovado por média ou falta}
-just in case that (Media < 5 or Faltas > 15) do
-    show(Nome, " com media ", Media, " : REPROVADO POR MÉDIA OU FALTA EM COMPILADORES\n");
-otherwise do
-    show(Nome, " com media ", Media, " e ", Faltas, " faltas: APROVADO EM COMPILADORES\n");
+capture(Altura);
+
+show("Digite o seu peso:");
+
+capture(Peso);
+
+{Calculo do IMC}
+IMC := Peso / (Altura * Altura);
+
+{Exibição dos resultados}
+just in case that ( IMC < 18.5 ) do
+	show("Magreza");
+	
+just in case that ( IMC >= 18.5 and IMC <= 24.9 ) do
+	show("Normal");
+	
+just in case that ( IMC >= 25.0 and IMC <= 29.9 ) do
+	show("Sobrepeso");
+	
+just in case that ( IMC >= 30.0 and IMC <= 34.9 ) do
+	show("Obesidade grau I");
+	
+just in case that ( IMC >= 35.0 and IMC <= 39.9 ) do
+	show("Obesidade grau II");
+
+just in case that ( IMC > 40.0) do
+	show("Obesidade grau III");
+
+show ("Seu IMC é aproximadamente", IMC // 1);
+
+just in case that ( IMC > 40.0 xor Idade > 65) do
+	show("Lembrete: Ou você possui uma idade maior que 65 anos ou possui um imc maior que 40.0, mas não ambos");
 
 That would be all.
