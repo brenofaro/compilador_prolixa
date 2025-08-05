@@ -1,5 +1,10 @@
 This is program SituacaoAluno.
 
 It presents:
+alterable number Primeira_Nota;
+unalterable number Faltas;
+
 
 Let us begin:
+.
+That would be all.

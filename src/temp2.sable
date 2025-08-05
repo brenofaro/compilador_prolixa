@@ -1,0 +1,28 @@
+start = programx
+            itpresents?
+            declaration_block?
+            letus
+            logica
+            endmaker;
+
+    programx = this is program id ponto;
+    itpresents = it presents dois_pontos;
+    letus = let us begin dois_pontos;
+    endmaker = upperthat would be all ponto;
+
+    inicializacao_alterable = alterable tipo id ponto_e_virgula
+            | {multi_alt} alterable tipo recursive_id ponto_e_virgula;
+    
+    recursive_id = id
+            | recursive_id virgula id;
+
+    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
+    ini_vector = vector of tipo abre_parenteses [linha]:number xmatriz [coluna]:number fecha_parenteses id ponto_e_virgula;
+    declarations = {ini_alterable} inicializacao_alterable
+    				| {ini_unalterable} inicializacao_unalterable
+            | {ini_vector} ini_vector;
+    declaration_block = declarations+;
+
+    logica = ponto;
+
+
