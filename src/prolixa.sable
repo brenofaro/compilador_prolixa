@@ -151,13 +151,16 @@ Productions
 
 start =
   thisprogram
-  letus
-  expr*;
+  itpresents
+  letus;
 
 thisprogram =
   {this} this is program id ponto;
+
+itpresents =
+  {presents} it presents dois_pontos;
 letus =
-  {inicio} let us begin ponto_e_virgula;
+  {inicio} let us begin dois_pontos;
 
 expr =
   {atribuicao} id atribuicao number ponto_e_virgula;

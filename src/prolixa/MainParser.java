@@ -10,7 +10,7 @@ public class MainParser
  {
   try
   {
-   String arquivo = "codFonte/test.prlx";
+   String arquivo = "codFonte/codFonte.prlx";
   
    Lexer lex = new Lexer(
 		    new PushbackReader(  
