@@ -8,8 +8,7 @@ Helpers
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
-  letra_acentos = ['À' .. 'ÿ'];
-  letra = (letra_minuscula | letra_maiuscula | letra_acentos);
+  letra = (letra_minuscula | letra_maiuscula);
   digitos = ['0' .. '9'];
   underline = '_';
   espaco = ' ';
@@ -145,3 +144,48 @@ tipo = ('answer' | 'symbol' | 'number');
 
 Ignored Tokens
  vazio;
+ 
+ Productions
+
+    start = programx;
+
+    programx = this is program id ponto bloco_decla;
+    bloco_decla = itpresents declarations letus;
+    itpresents = it presents dois_pontos;
+    letus = let us begin dois_pontos logica;
+    endmaker = that would be all ponto;
+    
+    fator = {number} number | {answer} answer | {symbol} symbol;
+
+    inicializacao_alterable = alterable tipo id ponto_e_virgula ;
+    inicializacao_unalterable = unalterable tipo id igual fator  ponto_e_virgula;
+    matriz = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]:num extra_matriz? fecha_parenteses id;
+    extra_matriz = xmatriz num;
+    vetor = vector of tipo abre_parenteses num fecha_parenteses id;
+    declarations = {ini_alterable} inicializacao_alterable
+    				| {ini_unalterable} inicializacao_unalterable
+    				| {ini_vetor} matriz
+    				| {vetor} vetor;
+ 
+    logica = {exp} exp logica
+    		| {com} comando logica
+    		| {repeticao} repeticao logica 
+    		| {final} endmaker;
+    		
+    exp = {soma} id igual exp soma num
+		| {subtracao} id igual exp subtracao num
+    	| {divisao} id igual exp divisao num
+    	| {multi} id igual exp multiplicacao num
+    	| {number} num;
+    	
+   	num = number;
+    
+    comando = {cap} capture 
+    		| {show} show;
+    		
+    comp = id comparacao fator;
+    		
+    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comparacao fecha_parenteses do  logica ; // falta mais de uma comparação
+    
+    
+    
