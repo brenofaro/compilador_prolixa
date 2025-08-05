@@ -147,17 +147,34 @@ tipo = ('answer' | 'symbol' | 'number');
 Ignored Tokens
  vazio;
 
-Productions
-	
-	    start = programx itpresents? declarations? letus logica endmaker;
-	
-	    programx = this is program id ponto;
-	    itpresents = it presents dois_pontos;
-	    letus = let us begin dois_pontos;
-	    endmaker = that would be be allkw ponto;
-	
-	    inicializacao_alterable = alterable tipo id ponto_e_virgula;
-	    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
-	    declarations = (inicializacao_alterable | inicializacao_unalterable)+;
-	
-	    logica = ponto;
+ Productions
+
+    start = programx bloco_decla? letus logica endmaker;
+
+    programx = this is program id ponto;
+    bloco_decla = itpresents declarations;
+    itpresents = it presents dois_pontos;
+    letus = let us begin dois_pontos;
+    endmaker = that would be all ponto;
+
+    inicializacao_alterable = alterable tipo id ponto_e_virgula;
+    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
+    vetor = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]num fecha_parenteses id; // n vai se colocar number. n sei o motivo.
+    declarations = {ini_alterable} inicializacao_alterable
+    				| {ini_unalterable} inicializacao_unalterable
+    				| {ini_vetor} vetor;
+ 
+    logica = {exp} exp*
+    		| {com} comando*;
+    		
+    exp = {soma} id igual exp soma num
+		| {subtracao} id igual exp subtracao num
+    	| {divisao} id igual exp divisao num
+    	| {multi} id igual exp multiplicacao num
+    	| {number} num;
+    	
+   	num = number;
+    
+    comando = {cap} capture 
+    		| {show} show;
+    
