@@ -148,16 +148,16 @@ Ignored Tokens
  vazio;
 
 Productions
-	
-	    start = programx itpresents? declarations? letus logica endmaker;
-	
-	    programx = this is program id ponto;
-	    itpresents = it presents dois_pontos;
-	    letus = let us begin dois_pontos;
-	    endmaker = that would be be allkw ponto;
-	
-	    inicializacao_alterable = alterable tipo id ponto_e_virgula;
-	    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
-	    declarations = (inicializacao_alterable | inicializacao_unalterable)+;
-	
-	    logica = ponto;
+
+start =
+  thisprogram
+  letus
+  expr*;
+
+thisprogram =
+  {this} this is program id ponto;
+letus =
+  {inicio} let us begin ponto_e_virgula;
+
+expr =
+  {atribuicao} id atribuicao number ponto_e_virgula;
