@@ -146,3 +146,9 @@ tipo = ('answer' | 'symbol' | 'number');
 
 Ignored Tokens
  vazio;
+
+ Productions
+ expr =
+   {id} atribuicao number ponto_e_virgula;
+
+

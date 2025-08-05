@@ -13,7 +13,9 @@ all: $(SRC)/analysis $(SRC)/lexer $(SRC)/node $(SRC)/parser
 	@mkdir -p $(BIN)
 	$(JAVAC) -d $(BIN) $(shell find $(SRC) -name "*.java")
 	@mkdir -p $(BIN)/prolixa/lexer
+	@mkdir -p $(BIN)/prolixa/parser
 	@cp $(SRC)/lexer/lexer.dat $(BIN)/prolixa/lexer/
+	@cp $(SRC)/parser/parser.dat $(BIN)/prolixa/parser/
 
 # Limpa só o que é gerado
 clean:
@@ -27,5 +29,9 @@ run: all
 # Limpa os arquivos antigos e executa o programa
 runb: clean all
 	$(JAVA) -cp $(BIN) prolixa.Main
+
+# Limpa os arquivos antigos e executa o programa
+runbp: clean all
+	$(JAVA) -cp $(BIN) prolixa.MainParser
 
 .PHONY: all clean run runb

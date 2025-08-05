@@ -14,3 +14,6 @@
 ---
 #### Opção recomendada
 Usar `make runb` para limpar os arquivos gerados e executar o programa novamente automaticamente.
+
+### Para o Sintatico
+Usar `make runbp` para executar o analisador sintático.
