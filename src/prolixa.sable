@@ -149,6 +149,6 @@ Ignored Tokens
 
  Productions
  expr =
-   {id} atribuicao number ponto_e_virgula;
+   {atribuicao} id atribuicao number ponto_e_virgula;
 
 
