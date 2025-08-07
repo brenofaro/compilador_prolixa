@@ -149,8 +149,8 @@ Ignored Tokens
 
     start = programx;
 
-    programx = this is program id ponto bloco_decla;
-    bloco_decla = itpresents declarations letus;
+    programx = this is program id ponto bloco_decla?;
+    bloco_decla = itpresents declarations+ letus;
     itpresents = it presents dois_pontos;
     letus = let us begin dois_pontos logica;
     endmaker = that would be all ponto;
@@ -158,7 +158,7 @@ Ignored Tokens
     fator = {number} number | {answer} answer | {symbol} symbol;
 
     inicializacao_alterable = alterable tipo id ponto_e_virgula ;
-    inicializacao_unalterable = unalterable tipo id igual fator  ponto_e_virgula;
+    inicializacao_unalterable = unalterable tipo id igual fator ponto_e_virgula;
     matriz = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]:num extra_matriz? fecha_parenteses id;
     extra_matriz = xmatriz num;
     vetor = vector of tipo abre_parenteses num fecha_parenteses id;
@@ -186,6 +186,4 @@ Ignored Tokens
     comp = id comparacao fator;
     		
     repeticao = [primeiro]:as long [segundo]:as abre_parenteses comparacao fecha_parenteses do  logica ; // falta mais de uma comparação
-    
-    
     
