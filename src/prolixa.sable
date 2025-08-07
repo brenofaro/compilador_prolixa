@@ -1,150 +1,150 @@
 Package prolixa;
 
 Helpers
- rc = 13;
- nl = 10;
- tab = 9;
-
- // Caracteres
-  letra_maiuscula = ['A' .. 'Z'];
-  letra_minuscula = ['a' .. 'z'];
-  letra = (letra_minuscula | letra_maiuscula); // adicionar para aceitar letras com acento
-  digitos = ['0' .. '9'];
-  underline = '_';
-  espaco = ' ';
-  aspas_simples = 39;
-  aspas_duplas = 34;
-  all = [0 .. 0xFFFF];
-  contrabarra = '\';
-  
-  abre_chaves = '{';
-  fecha_chaves = '}';
-  abre_parenteses = '(';
-  fecha_parenteses = ')';
-  ponto = '.';
-  virgula = ',';
-  dois_pontos = ':';
-  ponto_e_virgula = ';';
-  abre_colchetes = '[';
-  fecha_colchetes = ']';
-  
-  
-  identificador = letra_maiuscula (letra | underline)*;
-  
-  vazio = (espaco | rc | nl | tab)+;
+	 rc = 13;
+	 nl = 10;
+	 tab = 9;
+	
+	 // Caracteres
+	 letra_maiuscula = ['A' .. 'Z'];
+	 letra_minuscula = ['a' .. 'z'];
+	 letra = (letra_minuscula | letra_maiuscula); // adicionar para aceitar letras com acento
+	 digitos = ['0' .. '9'];
+	 underline = '_';
+	 espaco = ' ';
+	 aspas_simples = 39;
+	 aspas_duplas = 34;
+	 all = [0 .. 0xFFFF];
+	 contrabarra = '\';
+	  
+	 abre_chaves = '{';
+	 fecha_chaves = '}';
+	 abre_parenteses = '(';
+	 fecha_parenteses = ')';
+	 ponto = '.';
+	 virgula = ',';
+	 dois_pontos = ':';
+	 ponto_e_virgula = ';';
+	 abre_colchetes = '[';
+	 fecha_colchetes = ']';
+	  
+	  
+	 identificador = letra_maiuscula (letra | underline)*;
+	 
+	 vazio = (espaco | rc | nl | tab)+;
  
 Tokens
- // Palavras reservadas
+	// Palavras reservadas
+	 
+	//Start
+	this = 'This';
+	is = 'is';
+	program = 'program';
+	 
+	//Declarações
+	it = 'It';
+	presents = 'presents';
+	 
+	of = 'of'; // De of type
+	 
+	alterable = 'alterable';
+	unalterable = 'unalterable';
+	vector = 'vector';
+	xmatriz = 'x';
+	
+	//Begin
+	let = 'Let';
+	us = 'us';
+	begin = 'begin';
+	 
+	//End Begin
+	beginthat= 'That';
+	would = 'would';
+	be = 'be';
+	all = 'all';
  
- //Start
- this = 'This';
- is = 'is';
- program = 'program';
- 
- //Declarações
- it = 'It';
- presents = 'presents';
- 
- of = 'of'; // De of type
- 
- alterable = 'alterable';
- unalterable = 'unalterable';
- vector = 'vector';
- xmatriz = 'x';
-
- //Begin
- let = 'Let';
- us = 'us';
- begin = 'begin';
- 
- //End Begin
- beginthat= 'That';
- would = 'would';
- be = 'be';
- all = 'all';
- 
-// Just in case that do
-just  = 'just';
-in  = 'in';
-case  = 'case';
-that  = 'that';
-do = 'do';
-
-otherwise = 'otherwise';
-
-// As long as
-as = 'as';
-long = 'long';
-
-// Considering
-considering = 'considering';
-from = 'from';
-to = 'to';
-by = 'by';
-
-abandon = 'abandon';
-
-//Go to next iteration
-go = 'go';
-next = 'next';
-iteration = 'iteration';
-
-//Comando
-capture  = 'capture';
-show  = 'show';
-
- // Extras
- ponto = ponto;
- dois_pontos = dois_pontos;
- ponto_e_virgula = ponto_e_virgula;
- abre_parenteses = abre_parenteses;
- fecha_parenteses = fecha_parenteses;
-abre_colchetes = abre_colchetes;
-fecha_colchetes = fecha_colchetes;
-
- virgula = virgula;
- 
-
- // Identificador
- id = identificador;
-
- // Tipos primitivos
- symbol = aspas_simples (contrabarra all | all)? aspas_simples;
- answer = 'yes' | 'no';
- number = (digitos+ | digitos+ ponto digitos+);
-
-tipo = ('answer' | 'symbol' | 'number');
-
- // Outro tipo
- string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
- 
- //Operadores
- igual = '=';
- atribuicao = ':=';
- multiplicacao = '*';
- divisao = '/';
- subtracao = '-';
- soma = '+';
- resto = '//';
- comparacao = '==';
- diferenca = '!=';
- menorqueigual = '<=';
- maiorqueigual = '>=';
- menorque = '<';
- maiorque = '>';
- negacao = '!';
- and = 'and';
- or = 'or';
- xor = 'xor';
- 
- // Comentário
- comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
-
- 
- vazio = vazio;
-
-Ignored Tokens
- vazio;
+	// Just in case that do
+	just  = 'just';
+	in  = 'in';
+	case  = 'case';
+	that  = 'that';
+	do = 'do';
+	
+	otherwise = 'otherwise';
+	
+	// As long as
+	as = 'as';
+	long = 'long';
+	
+	// Considering
+	considering = 'considering';
+	from = 'from';
+	to = 'to';
+	by = 'by';
+	
+	abandon = 'abandon';
+	
+	//Go to next iteration
+	go = 'go';
+	next = 'next';
+	iteration = 'iteration';
+	
+	//Comando
+	capture  = 'capture';
+	show  = 'show';
+	
+	 // Extras
+	 ponto = ponto;
+	 dois_pontos = dois_pontos;
+	 ponto_e_virgula = ponto_e_virgula;
+	 abre_parenteses = abre_parenteses;
+	 fecha_parenteses = fecha_parenteses;
+	abre_colchetes = abre_colchetes;
+	fecha_colchetes = fecha_colchetes;
+	
+	virgula = virgula;
+	 
+	
+	// Identificador
+	id = identificador;
+	
+	// Tipos primitivos
+	symbol = aspas_simples (contrabarra all | all)? aspas_simples;
+	answer = 'yes' | 'no';
+	number = (digitos+ | digitos+ ponto digitos+);
+	
+	tipo = ('answer' | 'symbol' | 'number');
+	
+	// Outro tipo
+	string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
+	 
+	//Operadores
+	igual = '=';
+	atribuicao = ':=';
+	multiplicacao = '*';
+	divisao = '/';
+	subtracao = '-';
+	soma = '+';
+	resto = '//';
+	comparacao = '==';
+	diferenca = '!=';
+	menorqueigual = '<=';
+	maiorqueigual = '>=';
+	menorque = '<';
+	maiorque = '>';
+	negacao = '!';
+	and = 'and';
+	or = 'or';
+	xor = 'xor';
+	 
+	// Comentário
+	comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
+	
+	 
+	vazio = vazio;
+	
+	Ignored Tokens
+		vazio;
  
  Productions
 
@@ -171,14 +171,14 @@ Ignored Tokens
     				| {vetor} vetor;
  
     logica = {atr} atr
-    		| {exp} exp
     		| {com} comando
     		| {repeticao} repeticao
     		| {laco} laco
     		| {condicional} condicional
+    		| {bloco} bloco
     		;
     		
-    atr = id atribuicao fator ponto_e_virgula;
+    atr = var atribuicao exp ponto_e_virgula;
     		
     exp = {soma} id igual exp soma num
 		| {subtracao} id igual exp subtracao num
@@ -186,15 +186,16 @@ Ignored Tokens
     	| {multi} id igual exp multiplicacao num
     	| {teste} var menorqueigual exp
     	| {number} num
+    	| {fator} fator
     	| {var} var
     	;
-    	
     	
    	num = number;
    	
    	var = {elemento} id |{vetor} id abre_parenteses exp lista_exp* fecha_parenteses;
     lista_exp = virgula exp;
     lista_var = virgula var;
+    unalt = id;
     
     comando = {cap} capture abre_parenteses var lista_var* fecha_parenteses ponto_e_virgula
             | {show} show abre_parenteses exp lista_exp* fecha_parenteses ponto_e_virgula
@@ -203,12 +204,25 @@ Ignored Tokens
     		
     comp = id comparacao fator;
     		
-    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comp fecha_parenteses do bloco;
+    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comp fecha_parenteses do logica;
     
-    bloco = abre_colchetes logica* fecha_colchetes;
+    bloco = abre_colchetes declarations* logica* fecha_colchetes;
     
-    laco = considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do bloco;
+    laco = considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do logica;
     
-    condicional = just in case that abre_parenteses exp fecha_parenteses do bloco;
+    condicional = {cond_com_else} cond_com_else 
+    			| {cond_sem_else} cond_sem_else;
+    			
+    cond_com_else = {ifnormal} just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:cond_com_else otherwise [t]:do [q]:cond_com_else
+    				| {outra} outra ;
+    				
+    outra = {atr} atr
+    		| {com} comando
+    		| {repeticao} repeticao
+    		| {laco} laco
+    		| {bloco} bloco
+    		;
     
+    cond_sem_else = {ifsemelse} just in case that abre_parenteses exp fecha_parenteses do condicional
+    				| {ifcomcasamint} just in case that abre_parenteses exp fecha_parenteses [p]:do cond_com_else otherwise [s]:do cond_sem_else;
     
