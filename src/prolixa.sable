@@ -8,7 +8,6 @@ Helpers
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
-  letra_acentos = ['À' .. 'ÿ'];
   letra = (letra_minuscula | letra_maiuscula);
   digitos = ['0' .. '9'];
   underline = '_';
@@ -59,7 +58,7 @@ Tokens
  begin = 'begin';
  
  //End Begin
- upper_that= 'That';
+ beginthat= 'That';
  would = 'would';
  be = 'be';
  all = 'all';
@@ -116,8 +115,8 @@ fecha_colchetes = fecha_colchetes;
 
 tipo = ('answer' | 'symbol' | 'number');
 
- // Vetor
- symbol_vector = aspas_duplas [all - aspas_duplas]* aspas_duplas;
+ // Outro tipo
+ string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
  
  //Operadores
  igual = '=';
@@ -146,31 +145,63 @@ tipo = ('answer' | 'symbol' | 'number');
 
 Ignored Tokens
  vazio;
+ 
+ Productions
 
-Productions
+    start = programx;
 
-  start = programx
-            itpresents?
-            declaration_block?
-            letus
-            logica
-            endmaker;
-
-    programx = this is program id ponto;
+    programx = this is program id ponto bloco_decla?;
+    bloco_decla = itpresents declarations+ letus;
     itpresents = it presents dois_pontos;
-    letus = let us begin dois_pontos;
-    endmaker = upper_that would be all ponto;
-
-    inicializacao_alterable = alterable tipo id ponto_e_virgula;
+    letus = let us begin dois_pontos logica;
+    endmaker = that would be all ponto;
     
-    recursive_id = id
-            | {rec_id} recursive_id virgula id;
+    fator = {number} number | {answer} answer | {symbol} symbol;
 
-    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
-    ini_vector = vector of tipo abre_parenteses [linha]:number xmatriz [coluna]:number fecha_parenteses id ponto_e_virgula;
+    inicializacao_alterable = alterable tipo id ponto_e_virgula ;
+    inicializacao_unalterable = unalterable tipo id igual fator ponto_e_virgula;
+    matriz = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]:num extra_matriz? fecha_parenteses id;
+    extra_matriz = xmatriz num;
+    vetor = vector of tipo abre_parenteses num fecha_parenteses id;
     declarations = {ini_alterable} inicializacao_alterable
     				| {ini_unalterable} inicializacao_unalterable
-            | {ini_vector} ini_vector;
-    declaration_block = declarations+;
+    				| {ini_vetor} matriz
+    				| {vetor} vetor;
+ 
+    logica = {exp} exp logica
+    		| {com} comando logica
+    		| {repeticao} repeticao logica 
+    		| {final} endmaker;
+    		
+    exp = {soma} id igual exp soma num
+		| {subtracao} id igual exp subtracao num
+    	| {divisao} id igual exp divisao num
+    	| {multi} id igual exp multiplicacao num
+    	| {number} num;
+    	
+   	num = number;
+    
+    unalt = igual exp ponto_e_virgula;
 
-    logica = ponto;
+    comando = {var} var atribuicao exp ponto_e_virgula
+        | {unalt} igual exp ponto_e_virgula
+        | {cap} capture  abre_parenteses var_recursive fecha_parenteses ponto_e_virgula
+    		| {show} show abre_parenteses exp_recursive fecha_parenteses ponto_e_virgula;
+        // Falta o just_in_case
+
+
+      var = id
+        | {segunda} id abre_parenteses exp_recursive fecha_parenteses;
+
+    var_recursive = var
+      | {recursive_var} var virgula var_recursive;
+
+      exp_recursive = exp
+        | {recursive_exp}  exp virgula exp_recursive;
+    		
+    comp = id comparacao fator;
+    		
+    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comparacao fecha_parenteses do  logica ; // falta mais de uma comparação
+    
+    
+    

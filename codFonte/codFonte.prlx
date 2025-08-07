@@ -2,9 +2,7 @@ This is program SituacaoAluno.
 
 It presents:
 alterable number Primeira_Nota;
-unalterable number Faltas;
-
-
+unalterable number Teste = 20;
 Let us begin:
-.
+show("Teste")
 That would be all.
