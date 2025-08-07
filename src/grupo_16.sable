@@ -180,9 +180,17 @@ Ignored Tokens
     	
    	num = number;
     
-    comando = {cap} capture 
-    		| {show} show;
-    		
+    
+    var = {elemento} id |{vetor} id abre_parenteses exp lista_exp* fecha_parenteses;
+    lista_exp = virgula exp;
+    lista_var = virgula var;
+    
+    comando = {cap} capture abre_parenteses var lista_var* fecha_parenteses ponto_e_virgula
+    		| {show} show abre_parenteses exp lista_exp* fecha_parenteses ponto_e_virgula
+    		| {abandon} abandon ponto_e_virgula
+    		| {next} go to next iteration ponto_e_virgula; 
+    		    
+    
     comp = id comparacao fator;
     		
     repeticao = [primeiro]:as long [segundo]:as abre_parenteses comparacao fecha_parenteses do  logica ; // falta mais de uma comparação
