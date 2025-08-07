@@ -11,7 +11,7 @@ public class Main
     {
         try
         {
-            String arquivo = "codFonte/test.prlx";
+            String arquivo = "codFonte/codFonte.prlx";
 
             Lexer lexer =
                     new Lexer(
@@ -21,9 +21,9 @@ public class Main
             
             Start tree = p.parse();
             //Imprime árvore na saída padrão
-            //tree.apply(new ASTPrinter());
+            tree.apply(new ASTPrinter());
             //Imprime árvore em interface gráfica
-            tree.apply(new ASTDisplay());
+            //tree.apply(new ASTDisplay());
 
         }
         catch(Exception e)

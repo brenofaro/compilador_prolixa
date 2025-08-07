@@ -1,1 +1,15 @@
-alterable symbol Teste, Ola, Identificador;
+This is program IMCalculator.
+
+It presents:
+    alterable answer Resposta;
+
+Let us begin:
+    Resposta := 3;
+
+    just in case that ( Resposta <= 3 ) do 
+    [
+        show (3);
+    ]
+
+
+That would be all.

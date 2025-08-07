@@ -1,45 +1,14 @@
 Package prolixa;
 
 Helpers
-	 rc = 13;
-	 nl = 10;
-	 tab = 9;
+ rc = 13;
+ nl = 10;
+ tab = 9;
 
-<<<<<<< HEAD:src/grupo_16.sable
-	 // Caracteres
-	  letra_maiuscula = ['A' .. 'Z'];
-	  letra_minuscula = ['a' .. 'z'];
-	  letra_acentos = ['À' .. 'ÿ'];
-	  letra = (letra_minuscula | letra_maiuscula | letra_acentos);
-	  digitos = ['0' .. '9'];
-	  underline = '_';
-	  espaco = ' ';
-	  aspas_simples = 39;
-	  aspas_duplas = 34;
-	  all = [0 .. 0xFFFF];
-	  contrabarra = '\';
-	  
-	  abre_chaves = '{';
-	  fecha_chaves = '}';
-	  abre_parenteses = '(';
-	  fecha_parenteses = ')';
-	  ponto = '.';
-	  virgula = ',';
-	  dois_pontos = ':';
-	  ponto_e_virgula = ';';
-	  abre_colchetes = '[';
-	  fecha_colchetes = ']';
-	  
-	  
-	  identificador = letra_maiuscula (letra | underline)*;
-	  
-	  vazio = (espaco | rc | nl | tab)+;
-=======
  // Caracteres
   letra_maiuscula = ['A' .. 'Z'];
   letra_minuscula = ['a' .. 'z'];
-  letra_acentos = ['À' .. 'ÿ'];
-  letra = (letra_minuscula | letra_maiuscula);
+  letra = (letra_minuscula | letra_maiuscula); // adicionar para aceitar letras com acento
   digitos = ['0' .. '9'];
   underline = '_';
   espaco = ' ';
@@ -63,141 +32,26 @@ Helpers
   identificador = letra_maiuscula (letra | underline)*;
   
   vazio = (espaco | rc | nl | tab)+;
->>>>>>> 543109b95b48cdfc5251a2b0174230d3147509fe:src/prolixa.sable
  
 Tokens
-	 // Palavras reservadas
-	 
-	 //Start
-	 this = 'This';
-	 is = 'is';
-	 program = 'program';
-	 
-	 //Declarações
-	 it = 'It';
-	 presents = 'presents';
-	 
-	 of = 'of'; // De of type
-	 
-	 alterable = 'alterable';
-	 unalterable = 'unalterable';
-	 vector = 'vector';
-	 xmatriz = 'x';
-	
-	 //Begin
-	 let = 'Let';
-	 us = 'us';
-	 begin = 'begin';
-	 
-	 //End Begin
-	 beginthat= 'That';
-	 would = 'would';
-	 be = 'be';
-	 all = 'all';
-	 
-	// Just in case that do
-	just  = 'just';
-	in  = 'in';
-	case  = 'case';
-	that  = 'that';
-	do = 'do';
-	
-	otherwise = 'otherwise';
-	
-	// As long as
-	as = 'as';
-	long = 'long';
-	
-	// Considering
-	considering = 'considering';
-	from = 'from';
-	to = 'to';
-	by = 'by';
-	
-	abandon = 'abandon';
-	
-	//Go to next iteration
-	go = 'go';
-	next = 'next';
-	iteration = 'iteration';
-	
-	//Comando
-	capture  = 'capture';
-	show  = 'show';
-	
-	 // Extras
-	 ponto = ponto;
-	 dois_pontos = dois_pontos;
-	 ponto_e_virgula = ponto_e_virgula;
-	 abre_parenteses = abre_parenteses;
-	 fecha_parenteses = fecha_parenteses;
-	abre_colchetes = abre_colchetes;
-	fecha_colchetes = fecha_colchetes;
-	
-	 virgula = virgula;
-	 
-	
-	 // Identificador
-	 id = identificador;
-	
-	 // Tipos primitivos
-	 symbol = aspas_simples (contrabarra all | all)? aspas_simples;
-	 answer = 'yes' | 'no';
-	 number = (digitos+ | digitos+ ponto digitos+);
-	
-	tipo = ('answer' | 'symbol' | 'number');
-	
-	 // Outro tipo
-	 string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
-	 
-	 //Operadores
-	 igual = '=';
-	 multiplicacao = '*';
-	 divisao = '/';
-	 subtracao = '-';
-	 soma = '+';
-	 resto = '//';
-	 comparacao = '==';
-	 diferenca = '!=';
-	 menorqueigual = '<=';
-	 maiorqueigual = '>=';
-	 menorque = '<';
-	 maiorque = '>';
-	 negacao = '!';
-	 and = 'and';
-	 or = 'or';
-	 xor = 'xor';
-	 
-	 // Comentário
-	 comment = abre_chaves [all - fecha_chaves]+ fecha_chaves;
-	
-	 
-	 vazio = vazio;
-	
-	Ignored Tokens
-	 vazio;
-	 
-Productions
+ // Palavras reservadas
+ 
+ //Start
+ this = 'This';
+ is = 'is';
+ program = 'program';
+ 
+ //Declarações
+ it = 'It';
+ presents = 'presents';
+ 
+ of = 'of'; // De of type
+ 
+ alterable = 'alterable';
+ unalterable = 'unalterable';
+ vector = 'vector';
+ xmatriz = 'x';
 
-<<<<<<< HEAD:src/grupo_16.sable
-	start = programx itpresents? declarations? letus logica endmaker;
-	
-	programx = this is program id ponto;
-	
-	itpresents = it presents dois_pontos;
-	
-	declarations = inicializacao_alt+;
-	
-	letus = let us begin dois_pontos;
-	
-	endmaker = that would be all ponto;
-	
-	inicializacao_alt = alterable tipo id ponto_e_virgula;
-	inicializacao_unalt =unalterable tipo id ponto_e_virgula;
-	//inicializacao_vector = vector of tipo abre_parenteses number xmatriz number fecha_parenteses id; // falta 3 dimensões
-	
-	logica = ponto;
-=======
  //Begin
  let = 'Let';
  us = 'us';
@@ -261,8 +115,8 @@ fecha_colchetes = fecha_colchetes;
 
 tipo = ('answer' | 'symbol' | 'number');
 
- // Vetor
- symbol_vector = aspas_duplas [all - aspas_duplas]* aspas_duplas;
+ // Outro tipo
+ string = aspas_duplas [all - aspas_duplas]* aspas_duplas;
  
  //Operadores
  igual = '=';
@@ -291,36 +145,70 @@ tipo = ('answer' | 'symbol' | 'number');
 
 Ignored Tokens
  vazio;
-
+ 
  Productions
 
-    start = programx bloco_decla? letus logica endmaker;
+    start = programx;
 
-    programx = this is program id ponto;
-    bloco_decla = itpresents declarations;
+    programx = this is program id ponto bloco_decla? letus?;
+    bloco_decla = itpresents declarations+ letus;
     itpresents = it presents dois_pontos;
-    letus = let us begin dois_pontos;
-    endmaker = that would be all ponto;
+    letus = let us begin dois_pontos logica+ endmaker;
+    endmaker = beginthat would be all ponto;
+    
+    fator = {number} number | {answer} answer | {symbol} symbol;
 
-    inicializacao_alterable = alterable tipo id ponto_e_virgula;
-    inicializacao_unalterable = unalterable tipo id ponto_e_virgula;
-    vetor = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]num fecha_parenteses id; // n vai se colocar number. n sei o motivo.
+    inicializacao_alterable = alterable tipo id ponto_e_virgula ;
+    inicializacao_unalterable = unalterable tipo id atribuicao fator ponto_e_virgula;
+    
+    matriz = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]:num extra_matriz? fecha_parenteses id;
+    extra_matriz = xmatriz num;
+    vetor = vector of tipo abre_parenteses num fecha_parenteses id;
+    
     declarations = {ini_alterable} inicializacao_alterable
     				| {ini_unalterable} inicializacao_unalterable
-    				| {ini_vetor} vetor;
+    				| {ini_vetor} matriz
+    				| {vetor} vetor;
  
-    logica = {exp} exp*
-    		| {com} comando*;
+    logica = {atr} atr
+    		| {exp} exp
+    		| {com} comando
+    		| {repeticao} repeticao
+    		| {laco} laco
+    		| {condicional} condicional
+    		;
+    		
+    atr = id atribuicao fator ponto_e_virgula;
     		
     exp = {soma} id igual exp soma num
 		| {subtracao} id igual exp subtracao num
     	| {divisao} id igual exp divisao num
     	| {multi} id igual exp multiplicacao num
-    	| {number} num;
+    	| {teste} var menorqueigual exp
+    	| {number} num
+    	| {var} var
+    	;
+    	
     	
    	num = number;
+   	
+   	var = {elemento} id |{vetor} id abre_parenteses exp lista_exp* fecha_parenteses;
+    lista_exp = virgula exp;
+    lista_var = virgula var;
     
-    comando = {cap} capture 
-    		| {show} show;
+    comando = {cap} capture abre_parenteses var lista_var* fecha_parenteses ponto_e_virgula
+            | {show} show abre_parenteses exp lista_exp* fecha_parenteses ponto_e_virgula
+            | {abandon} abandon ponto_e_virgula
+            | {next} go to next iteration ponto_e_virgula;
+    		
+    comp = id comparacao fator;
+    		
+    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comp fecha_parenteses do bloco;
     
->>>>>>> 543109b95b48cdfc5251a2b0174230d3147509fe:src/prolixa.sable
+    bloco = abre_colchetes logica* fecha_colchetes;
+    
+    laco = considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do bloco;
+    
+    condicional = just in case that abre_parenteses exp fecha_parenteses do bloco;
+    
+    
