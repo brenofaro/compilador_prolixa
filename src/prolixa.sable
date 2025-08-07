@@ -180,15 +180,37 @@ Tokens
     		
     atr = var atribuicao exp ponto_e_virgula;
     		
-    exp = {soma} id igual exp soma num
-		| {subtracao} id igual exp subtracao num
-    	| {divisao} id igual exp divisao num
-    	| {multi} id igual exp multiplicacao num
-    	| {teste} var menorqueigual exp
-    	| {number} num
-    	| {fator} fator
-    	| {var} var
-    	;
+	  exp = exp_and
+		  | {or} exp or exp_and;
+	
+	  exp_and = exp_exclusive_xor
+		  | {and} exp_and and exp_exclusive_xor;
+	
+	  exp_exclusive_xor = exp_igualitario
+		  | {xor} exp_exclusive_xor xor exp_igualitario;
+	
+	  exp_igualitario = exp_relacional
+		  | {igual} exp_igualitario comparacao exp_relacional
+		  | {diferenca} exp_igualitario diferenca exp_relacional;
+	
+	  exp_relacional = exp_aditiva
+		  | {menorque} exp_relacional menorque exp_aditiva
+		  | {maiorque} exp_relacional maiorque exp_aditiva
+		  | {maiorqueigual} exp_relacional maiorqueigual exp_aditiva
+		  | {menorqueigual} exp_relacional menorqueigual exp_aditiva;
+	
+	  exp_aditiva = exp_multi
+		  | {soma} exp_aditiva soma exp_multi
+		  | {subtracao} exp_aditiva subtracao exp_multi;
+	
+	  exp_multi = exp_unario
+		  | {multiplicacao} exp_multi multiplicacao exp_unario
+		  | {divisao} exp_multi divisao exp_unario
+		  | {divisao_inteira} exp_multi divisao_inteira exp_unario;
+	
+	  exp_unario = termo
+		  | {negativo} subtracao termo
+		  | {negacao} negacao termo;
     	
    	num = number;
    	
