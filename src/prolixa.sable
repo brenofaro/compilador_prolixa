@@ -8,7 +8,8 @@ Helpers
 	 // Caracteres
 	 letra_maiuscula = ['A' .. 'Z'];
 	 letra_minuscula = ['a' .. 'z'];
-	 letra = (letra_minuscula | letra_maiuscula); // adicionar para aceitar letras com acento
+	 letra_acentos = ['À' .. 'ÿ'];
+	 letra = (letra_minuscula | letra_maiuscula | letra_acentos);
 	 digitos = ['0' .. '9'];
 	 underline = '_';
 	 espaco = ' ';
@@ -125,7 +126,7 @@ Tokens
 	divisao = '/';
 	subtracao = '-';
 	soma = '+';
-	resto = '//';
+	divisao_inteira = '//';
 	comparacao = '==';
 	diferenca = '!=';
 	menorqueigual = '<=';
@@ -153,8 +154,7 @@ Tokens
     programx = this is program id ponto bloco_decla? letus?;
     bloco_decla = itpresents declarations+ letus;
     itpresents = it presents dois_pontos;
-    letus = let us begin dois_pontos logica+ endmaker;
-    endmaker = beginthat would be all ponto;
+    letus = let us begin dois_pontos logica+ beginthat would be all ponto;
     
     fator = {number} number | {answer} answer | {symbol} symbol;
 
@@ -170,45 +170,55 @@ Tokens
     				| {ini_vetor} matriz
     				| {vetor} vetor;
  
-    logica = {atr} atr
-    		| {com} comando
-    		| {repeticao} repeticao
-    		| {laco} laco
-    		| {condicional} condicional
-    		| {bloco} bloco
+    logica = {comando_condicional} comando_condicional
+    		| {comandos_sem_condicional} comandos_sem_condicional
     		;
     		
+    comandos_sem_condicional = {atr} atr
+				    		| {com} comando
+				    		| {repeticao} repeticao
+				    		| {laco} laco
+				    		| {bloco} bloco
+				    		;
+    
+    comando_condicional = condicional;
+    
+    
     atr = var atribuicao exp ponto_e_virgula;
-    		
-	  exp = exp_and
+    
+    termo = {number} number|
+    		{answer} answer|
+    		{symbol} symbol;
+     		
+	exp = exp_and
 		  | {or} exp or exp_and;
 	
-	  exp_and = exp_exclusive_xor
+	exp_and = exp_exclusive_xor
 		  | {and} exp_and and exp_exclusive_xor;
 	
-	  exp_exclusive_xor = exp_igualitario
+	exp_exclusive_xor = exp_igualitario
 		  | {xor} exp_exclusive_xor xor exp_igualitario;
 	
-	  exp_igualitario = exp_relacional
+	exp_igualitario = exp_relacional
 		  | {igual} exp_igualitario comparacao exp_relacional
 		  | {diferenca} exp_igualitario diferenca exp_relacional;
 	
-	  exp_relacional = exp_aditiva
+	exp_relacional = exp_aditiva
 		  | {menorque} exp_relacional menorque exp_aditiva
 		  | {maiorque} exp_relacional maiorque exp_aditiva
 		  | {maiorqueigual} exp_relacional maiorqueigual exp_aditiva
 		  | {menorqueigual} exp_relacional menorqueigual exp_aditiva;
 	
-	  exp_aditiva = exp_multi
+	exp_aditiva = exp_multi
 		  | {soma} exp_aditiva soma exp_multi
 		  | {subtracao} exp_aditiva subtracao exp_multi;
 	
-	  exp_multi = exp_unario
+	exp_multi = exp_unario
 		  | {multiplicacao} exp_multi multiplicacao exp_unario
 		  | {divisao} exp_multi divisao exp_unario
 		  | {divisao_inteira} exp_multi divisao_inteira exp_unario;
 	
-	  exp_unario = termo
+	exp_unario = termo
 		  | {negativo} subtracao termo
 		  | {negacao} negacao termo;
     	
@@ -232,19 +242,15 @@ Tokens
     
     laco = considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do logica;
     
-    condicional = {cond_com_else} cond_com_else 
-    			| {cond_sem_else} cond_sem_else;
-    			
-    cond_com_else = {ifnormal} just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:cond_com_else otherwise [t]:do [q]:cond_com_else
-    				| {outra} outra ;
-    				
-    outra = {atr} atr
-    		| {com} comando
-    		| {repeticao} repeticao
-    		| {laco} laco
-    		| {bloco} bloco
-    		;
+    condicional = just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:logica otherwise [t]:do [q]:logica;
     
-    cond_sem_else = {ifsemelse} just in case that abre_parenteses exp fecha_parenteses do condicional
-    				| {ifcomcasamint} just in case that abre_parenteses exp fecha_parenteses [p]:do cond_com_else otherwise [s]:do cond_sem_else;
+    //condicional = {cond_com_else} cond_com_else 
+    //			| {cond_sem_else} cond_sem_else;
+    			
+    //cond_com_else = {ifnormal} just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:cond_com_else otherwise [t]:do [q]:cond_com_else
+    //				| {outra} comandos_sem_condicional ;
+    				
+    
+    //cond_sem_else = {ifsemelse} just in case that abre_parenteses exp fecha_parenteses do condicional
+    //				| {ifcomcasamint} just in case that abre_parenteses exp fecha_parenteses [p]:do cond_com_else otherwise [s]:do cond_sem_else;
     
