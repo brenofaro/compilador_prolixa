@@ -9,7 +9,7 @@ Helpers
 	 letra_maiuscula = ['A' .. 'Z'];
 	 letra_minuscula = ['a' .. 'z'];
 	 letra_acentos = ['À' .. 'ÿ'];
-	 letra = (letra_minuscula | letra_maiuscula | letra_acentos);
+	 letra = (letra_minuscula | letra_maiuscula| letra_acentos);
 	 digitos = ['0' .. '9'];
 	 underline = '_';
 	 espaco = ' ';
@@ -145,112 +145,169 @@ Tokens
 	vazio = vazio;
 	
 	Ignored Tokens
+		comment,
 		vazio;
  
  Productions
 
-    start = programx;
+	start {-> a_programx} = programx {-> programx.a_programx};
 
-    programx = this is program id ponto bloco_decla? letus?;
-    bloco_decla = itpresents declarations+ letus;
-    itpresents = it presents dois_pontos;
-    letus = let us begin dois_pontos logica+ beginthat would be all ponto;
-    
-    fator = {number} number | {answer} answer | {symbol} symbol;
+	programx {-> a_programx} = this is program id ponto bloco_decla? letus? {-> New a_programx(id, bloco_decla.a_bloco_decla, letus.a_letus)};
 
-    inicializacao_alterable = alterable tipo id ponto_e_virgula ;
-    inicializacao_unalterable = unalterable tipo id atribuicao fator ponto_e_virgula;
+	
+	bloco_decla {-> a_bloco_decla} = it presents dois_pontos declarations+ letus {-> New a_bloco_decla([declarations.a_declarations], letus.a_letus)};
+	
+	
+	letus{-> a_letus} = let us begin dois_pontos logica+ beginthat would be all ponto
+	{-> New a_letus([logica.a_logica])}; 
+	
+
+    inicializacao_alterable {-> a_declarations} = alterable tipo id ponto_e_virgula {-> New a_declarations.ini_alterable(tipo, id)};
+    inicializacao_unalterable {-> a_declarations}= unalterable tipo id extra_unalt? ponto_e_virgula {-> New a_declarations.ini_unalterable(tipo, id, extra_unalt.a_extra_unalt)};
+    extra_unalt {-> a_extra_unalt} = igual termo {-> New a_extra_unalt(termo.a_exp)};
     
-    matriz = vector of tipo abre_parenteses [primeiro]:num xmatriz [segundo]:num extra_matriz? fecha_parenteses id;
-    extra_matriz = xmatriz num;
-    vetor = vector of tipo abre_parenteses num fecha_parenteses id;
+    matriz {-> a_declarations} = vector of tipo abre_parenteses [primeiro]:exp xmatriz [segundo]:exp extra_matriz* fecha_parenteses id ponto_e_virgula {-> New a_declarations.matriz(tipo, [primeiro.a_exp, segundo.a_exp, extra_matriz.a_exp], id)};
+    extra_matriz {-> a_exp} = xmatriz exp {-> exp.a_exp};
+    vetor {-> a_declarations} = vector of tipo abre_parenteses exp fecha_parenteses id ponto_e_virgula {-> New a_declarations.vetor(tipo, exp.a_exp, id)};
     
-    declarations = {ini_alterable} inicializacao_alterable
-    				| {ini_unalterable} inicializacao_unalterable
-    				| {ini_vetor} matriz
-    				| {vetor} vetor;
+    declarations {-> a_declarations} = {ini_alterable} inicializacao_alterable {-> inicializacao_alterable.a_declarations}
+    				| {ini_unalterable} inicializacao_unalterable {-> inicializacao_unalterable.a_declarations}
+    				| {ini_vetor} matriz {-> matriz.a_declarations}
+    				| {vetor} vetor {-> vetor.a_declarations};
  
-    logica = {comando_condicional} comando_condicional
-    		| {comandos_sem_condicional} comandos_sem_condicional
+    logica {-> a_logica} = {comando_condicional} comando_condicional {-> comando_condicional.a_logica}
+    		| {comandos_sem_condicional} comandos_sem_condicional {->  comandos_sem_condicional.a_logica};
+    		
+    comandos_sem_condicional {-> a_logica}= {atr} atr {-> atr.a_logica}
+				    		| {com} comando {-> comando.a_logica}
+				    		| {repeticao} repeticao {-> repeticao.a_logica}
+				    		| {laco} laco {-> laco.a_logica}
+				    		| {bloco} bloco {-> bloco.a_logica};
+    
+    comando_condicional {-> a_logica} = condicional {-> condicional.a_logica};
+    
+    
+    atr {-> a_logica} = var atribuicao exp ponto_e_virgula {-> New a_logica.atr_alt(var.a_var, exp.a_exp)}
+			| {unalt}  unalt igual exp ponto_e_virgula {-> New a_logica.atr_unalt(unalt.a_unalt, exp.a_exp)};
+    
+    termo {-> a_exp}= {number} number {-> New a_exp.number(number)}
+    		|{answer} answer {-> New a_exp.answer(answer)}
+    		|{symbol} symbol {-> New a_exp.symbol(symbol)}
+    		|{string} string {-> New a_exp.string(string)}
+    		|{var} var {-> New a_exp.var(var.a_var)}
+    		|{parenteses} abre_parenteses exp fecha_parenteses {-> exp.a_exp}
     		;
-    		
-    comandos_sem_condicional = {atr} atr
-				    		| {com} comando
-				    		| {repeticao} repeticao
-				    		| {laco} laco
-				    		| {bloco} bloco
-				    		;
-    
-    comando_condicional = condicional;
-    
-    
-    atr = var atribuicao exp ponto_e_virgula;
-    
-    termo = {number} number|
-    		{answer} answer|
-    		{symbol} symbol;
      		
-	exp = exp_and
-		  | {or} exp or exp_and;
+	exp {-> a_exp} = exp_and {-> exp_and.a_exp }
+		  		| {or} exp or exp_and {-> New a_exp.or(exp.a_exp, exp_and.a_exp)};
 	
-	exp_and = exp_exclusive_xor
-		  | {and} exp_and and exp_exclusive_xor;
+	exp_and {-> a_exp} = exp_exclusive_xor {-> exp_exclusive_xor.a_exp }
+		  | {and} exp_and and exp_exclusive_xor {-> New a_exp.and(exp_and.a_exp, exp_exclusive_xor.a_exp)};
 	
-	exp_exclusive_xor = exp_igualitario
-		  | {xor} exp_exclusive_xor xor exp_igualitario;
+	exp_exclusive_xor {-> a_exp} = exp_igualitario {-> exp_igualitario.a_exp }
+		  | {xor} exp_exclusive_xor xor exp_igualitario {-> New a_exp.xor(exp_exclusive_xor.a_exp, exp_igualitario.a_exp)};
 	
-	exp_igualitario = exp_relacional
-		  | {igual} exp_igualitario comparacao exp_relacional
-		  | {diferenca} exp_igualitario diferenca exp_relacional;
+	exp_igualitario {-> a_exp} = exp_relacional {-> exp_relacional.a_exp }
+		  | {igual} exp_igualitario comparacao exp_relacional {-> New a_exp.igual(exp_igualitario.a_exp, exp_relacional.a_exp)}
+		  | {diferenca} exp_igualitario diferenca exp_relacional {-> New a_exp.diferenca(exp_igualitario.a_exp, exp_relacional.a_exp)};
 	
-	exp_relacional = exp_aditiva
-		  | {menorque} exp_relacional menorque exp_aditiva
-		  | {maiorque} exp_relacional maiorque exp_aditiva
-		  | {maiorqueigual} exp_relacional maiorqueigual exp_aditiva
-		  | {menorqueigual} exp_relacional menorqueigual exp_aditiva;
+	exp_relacional {-> a_exp} = exp_aditiva {-> exp_aditiva.a_exp }
+		  | {menorque} exp_relacional menorque exp_aditiva {-> New a_exp.menorque(exp_relacional.a_exp, exp_aditiva.a_exp)}
+		  | {maiorque} exp_relacional maiorque exp_aditiva {-> New a_exp.maiorque(exp_relacional.a_exp, exp_aditiva.a_exp)}
+		  | {maiorqueigual} exp_relacional maiorqueigual exp_aditiva {-> New a_exp.maiorqueigual(exp_relacional.a_exp, exp_aditiva.a_exp)}
+		  | {menorqueigual} exp_relacional menorqueigual exp_aditiva {-> New a_exp.menorqueigual(exp_relacional.a_exp, exp_aditiva.a_exp)};
+		  
 	
-	exp_aditiva = exp_multi
-		  | {soma} exp_aditiva soma exp_multi
-		  | {subtracao} exp_aditiva subtracao exp_multi;
+	exp_aditiva {-> a_exp} = exp_multi {-> exp_multi.a_exp }
+		  | {soma} exp_aditiva soma exp_multi {-> New a_exp.soma(exp_aditiva.a_exp, exp_multi.a_exp)}
+		  | {subtracao} exp_aditiva subtracao exp_multi {-> New a_exp.subtracao(exp_aditiva.a_exp, exp_multi.a_exp)};
 	
-	exp_multi = exp_unario
-		  | {multiplicacao} exp_multi multiplicacao exp_unario
-		  | {divisao} exp_multi divisao exp_unario
-		  | {divisao_inteira} exp_multi divisao_inteira exp_unario;
-	
-	exp_unario = termo
-		  | {negativo} subtracao termo
-		  | {negacao} negacao termo;
-    	
-   	num = number;
+	exp_multi {-> a_exp} = exp_unario {-> exp_unario.a_exp }
+		  | {multiplicacao} exp_multi multiplicacao exp_unario {-> New a_exp.multiplicacao(exp_multi.a_exp, exp_unario.a_exp)}
+		  | {divisao} exp_multi divisao exp_unario {-> New a_exp.divisao(exp_multi.a_exp, exp_unario.a_exp)}
+		  | {divisao_inteira} exp_multi divisao_inteira exp_unario {-> New a_exp.divisao_inteira(exp_multi.a_exp, exp_unario.a_exp)};
+		
+	exp_unario {-> a_exp} = termo {-> termo.a_exp}
+			| {negativo} subtracao exp_unario {-> New a_exp.negativo(exp_unario.a_exp)}
+			| {negacao} negacao exp_unario  {-> New a_exp.negacao(exp_unario.a_exp)};
+			
    	
-   	var = {elemento} id |{vetor} id abre_parenteses exp lista_exp* fecha_parenteses;
-    lista_exp = virgula exp;
-    lista_var = virgula var;
-    unalt = id;
+   	var {-> a_var}= {elemento} id {-> New a_var.elemento(id)}
+   	|{vetor} id abre_parenteses exp lista_exp* fecha_parenteses {-> New a_var.vetor(id,[exp.a_exp,lista_exp.a_exp])};
+   	
+   	
+    lista_exp {-> a_exp}= virgula exp {-> exp.a_exp};
+    lista_var {-> a_var}= virgula var {-> var.a_var};
+    unalt {-> a_unalt} = id {-> New a_unalt(id)};
     
-    comando = {cap} capture abre_parenteses var lista_var* fecha_parenteses ponto_e_virgula
-            | {show} show abre_parenteses exp lista_exp* fecha_parenteses ponto_e_virgula
-            | {abandon} abandon ponto_e_virgula
-            | {next} go to next iteration ponto_e_virgula;
+    
+    comando {-> a_logica} = {cap} capture abre_parenteses var lista_var* fecha_parenteses ponto_e_virgula {-> New a_logica.cap([var.a_var,lista_var.a_var])}
+            | {show} show abre_parenteses exp lista_exp* fecha_parenteses ponto_e_virgula {-> New a_logica.show([exp.a_exp,lista_exp.a_exp])}
+            | {abandon} abandon ponto_e_virgula {-> New a_logica.abandon(abandon)}
+            | {next} go to next iteration ponto_e_virgula {-> New a_logica.next(go, to, next, iteration)};
+    
     		
-    comp = id comparacao fator;
+    repeticao {-> a_logica} = [primeiro]:as long [segundo]:as abre_parenteses exp fecha_parenteses do logica {-> New a_logica.repeticao(exp.a_exp, logica.a_logica)};
+    
+    bloco {-> a_logica} = abre_colchetes declarations* logica* fecha_colchetes {-> New a_logica.bloco([declarations.a_declarations], [logica.a_logica])};
+    
+    laco {-> a_logica}= considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do logica {-> New a_logica.laco(var.a_var, primeiro.a_exp, segundo.a_exp, t.a_exp, logica.a_logica)};
+    
+    condicional {-> a_logica} = just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:logica otherwise [t]:do [q]:logica {-> New a_logica.condicional(exp.a_exp, s.a_logica, q.a_logica)};
+    
+    
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    Abstract Syntax Tree
+
+	a_programx = id [lista_declara]:a_bloco_decla? [lista_coman]:a_letus?;
+	
+	a_bloco_decla = [bloco_decla]:a_declarations+ a_letus;
+	
+	a_letus = [coman]:a_logica+;
+	
+	a_declarations = {ini_alterable} tipo id
+    				| {ini_unalterable} tipo id a_extra_unalt?
+    				| {matriz} tipo a_exp* id
+    				| {vetor} tipo a_exp id;
+    
+    a_extra_unalt = a_exp;
+		
+	a_exp = {or} [primeiro]:a_exp [segundo]:a_exp
+		  | {and} [primeiro]:a_exp [segundo]:a_exp
+		  | {xor} [primeiro]:a_exp [segundo]:a_exp
+		  | {igual} [primeiro]:a_exp [segundo]:a_exp
+		  | {diferenca} [primeiro]:a_exp [segundo]:a_exp
+		  | {menorque} [primeiro]:a_exp [segundo]:a_exp
+		  | {maiorque} [primeiro]:a_exp [segundo]:a_exp
+		  | {maiorqueigual} [primeiro]:a_exp [segundo]:a_exp
+		  | {menorqueigual} [primeiro]:a_exp [segundo]:a_exp
+		  | {soma} [primeiro]:a_exp [segundo]:a_exp
+		  | {subtracao} [primeiro]:a_exp [segundo]:a_exp
+		  | {multiplicacao} [primeiro]:a_exp [segundo]:a_exp
+		  | {divisao} [primeiro]:a_exp [segundo]:a_exp
+		  | {divisao_inteira} [primeiro]:a_exp [segundo]:a_exp
+		  | {negativo} a_exp
+		  | {negacao} a_exp
+		  | {number} number
+    	  | {answer} answer
+    	  | {symbol} symbol
+    	  | {string} string
+    	  | {var} a_var
+		  ;
+	
+	a_logica = {atr_alt} a_var a_exp
+			| {atr_unalt} a_unalt a_exp
+			| {condicional} a_exp [s]:a_logica [q]:a_logica
+    		| {repeticao} a_exp a_logica
+    		| {laco} a_var [primeiro]:a_exp [segundo]:a_exp [terceiro]:a_exp a_logica
+    		| {bloco} a_declarations* a_logica*
+    		| {cap} [lista_var]:a_var*
+            | {show} [lista_exp]:a_exp*
+            | {abandon} abandon
+            | {next} go to next iteration;
     		
-    repeticao = [primeiro]:as long [segundo]:as abre_parenteses comp fecha_parenteses do logica;
     
-    bloco = abre_colchetes declarations* logica* fecha_colchetes;
-    
-    laco = considering var from [primeiro]:exp to [segundo]:exp by [t]:exp do logica;
-    
-    condicional = just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:logica otherwise [t]:do [q]:logica;
-    
-    //condicional = {cond_com_else} cond_com_else 
-    //			| {cond_sem_else} cond_sem_else;
-    			
-    //cond_com_else = {ifnormal} just in case that abre_parenteses exp fecha_parenteses [p]:do [s]:cond_com_else otherwise [t]:do [q]:cond_com_else
-    //				| {outra} comandos_sem_condicional ;
-    				
-    
-    //cond_sem_else = {ifsemelse} just in case that abre_parenteses exp fecha_parenteses do condicional
-    //				| {ifcomcasamint} just in case that abre_parenteses exp fecha_parenteses [p]:do cond_com_else otherwise [s]:do cond_sem_else;
-    
+    a_var = {elemento} id 
+    		| {vetor} id [lista_exp]:a_exp*;
+    		
+    a_unalt = id;
